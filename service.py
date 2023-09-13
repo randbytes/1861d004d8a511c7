@@ -68,16 +68,19 @@ class Service:
         return users
 
     def edit_employee(self, id, text):
-        insert_obj = {
-        }
-        lines = text.splitlines()
-        for line in lines:
-            key, value = line.split(":")
-            key, value = serialize_key(key.strip()), value.strip()
-            insert_obj[key] = value
-        insert_obj["first_name_last_name"] = f"{insert_obj['first_name']}{insert_obj['last_name']}".upper()
-        self.db.update("users", id, self.chat_id, insert_obj)
-        return f"Данные обновлены"
+        try:
+            insert_obj = {
+            }
+            lines = text.splitlines()
+            for line in lines:
+                key, value = line.split(":")
+                key, value = serialize_key(key.strip()), value.strip()
+                insert_obj[key] = value
+            insert_obj["first_name_last_name"] = f"{insert_obj['first_name']}{insert_obj['last_name']}".upper()
+            self.db.update("users", id, self.chat_id, insert_obj)
+            return f"Данные обновлены"
+        except Exception as e:
+            return f"Ошибка! Данные введены не по форме"
 
     def find_employee(self, text):
         result = self.db.find("users", self.chat_id, "first_name_last_name", f"%{text.upper()}%", self.__all_columns)

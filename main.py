@@ -59,7 +59,7 @@ async def handle_user_command(message, command, stage = None):
             await message.answer("Данные обновлены", reply_markup=main_menu)
         else:
             _id = message.text.split("]")[0].split("[")[1]
-            text = "Введите обновленные данные сотрудника по форме:\nИмя:\nФамилия:\nОтчество:\nДолжность:\nПроект:\nАватар:\n"
+            text = "Скопируйте форму и введите обновленные данные сотрудника по форме:\nИмя:\nФамилия:\nОтчество:\nДолжность:\nПроект:\nАватар:\n"
             active_commands[str(message.chat.id)]["stage"] = 2
             active_commands[str(message.chat.id)]["shared"] = _id
             await message.answer(text)
@@ -99,7 +99,7 @@ async def add_employee(message: Message) -> None:
         "method":"Add",
         "stage": 1
     }
-    text = "Введите данные сотрудника по форме:\nИмя:\nФамилия:\nОтчество:\nДолжность:\nПроект:\nАватар:\n"
+    text = "Скопируйте форму и введите данные сотрудника соответственно полям:\nИмя:\nФамилия:\nОтчество:\nДолжность:\nПроект:\nАватар:\n"
     await message.answer(text)
 
 @dp.message(F.text == "Удалить сотрудника")
